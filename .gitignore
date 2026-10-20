@@ -1,0 +1,11 @@
+/build*/
+/.vs/
+/.idea/
+/out/
+/package/
+*.dll
+*.dp32
+*.dp64
+*.exp
+*.lib
+*.pdb
