@@ -1,7 +1,9 @@
 # StringsX64DbgNext
 
-A clean C++ rewrite of the x64dbg Strings plugin. It produces the familiar
-`strings.dp64` and `strings.dp32` plugin packages without depending on Qt.
+A clean C++ rewrite inspired by the original
+[horsicq/stringsx64dbg](https://github.com/horsicq/stringsx64dbg) plugin. It
+produces the familiar `strings.dp64` and `strings.dp32` plugin packages without
+depending on Qt.
 
 ## Features
 
@@ -41,3 +43,15 @@ The package is written to
 
 Copy the matching package into x64dbg's `plugins` directory, then restart the
 debugger. Open **Plugins > Strings** to scan the main module.
+
+## License and origin
+
+This is an independent rewrite of the original
+[horsicq/stringsx64dbg](https://github.com/horsicq/stringsx64dbg) plugin.
+The original project is distributed under the MIT License; its license and
+copyright are separate from this repository.
+
+The original contributions in this repository are licensed under the
+[PolyForm Noncommercial License 1.0.0](./LICENSE). Commercial use requires
+separate permission from the copyright holder. The x64dbg SDK and other
+third-party components remain under their respective licenses.
