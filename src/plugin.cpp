@@ -4,6 +4,7 @@
 #include <ShlObj.h>
 
 #include "_plugins.h"
+#include "_scriptapi_module.h"
 #include "scanner.h"
 
 #include <algorithm>
@@ -68,6 +69,19 @@ std::atomic_bool g_cancelScan = false;
 std::thread g_scanThread;
 std::mutex g_completionMutex;
 std::unique_ptr<ScanCompletion> g_completion;
+
+bool refreshMainModuleInfo()
+{
+    Script::Module::ModuleInfo moduleInfo = {};
+    if (!Script::Module::GetMainModuleInfo(&moduleInfo) || !moduleInfo.base || !moduleInfo.size) {
+        return false;
+    }
+
+    std::lock_guard<std::mutex> lock(g_completionMutex);
+    g_moduleBase = static_cast<std::uintptr_t>(moduleInfo.base);
+    g_moduleSize = static_cast<std::size_t>(moduleInfo.size);
+    return true;
+}
 
 void setStatus(const std::wstring& text)
 {
@@ -293,6 +307,10 @@ void startScan()
 {
     if (!DbgIsDebugging()) {
         MessageBoxW(g_window, L"Start or attach to a debuggee before scanning.", L"Strings", MB_OK | MB_ICONINFORMATION);
+        return;
+    }
+    if (!refreshMainModuleInfo()) {
+        MessageBoxW(g_window, L"Could not retrieve the main module information from x64dbg.", L"Strings", MB_OK | MB_ICONERROR);
         return;
     }
 

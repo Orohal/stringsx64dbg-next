@@ -11,6 +11,8 @@ A clean C++ rewrite of the x64dbg Strings plugin. It produces the familiar
   follow an address in x64dbg's dump.
 - Run memory scanning on a worker thread and cancel it when the debug session
   stops or the window closes.
+- Resolve the main module when a scan starts, including sessions already
+  running when the plugin window is opened.
 
 ## Build
 
